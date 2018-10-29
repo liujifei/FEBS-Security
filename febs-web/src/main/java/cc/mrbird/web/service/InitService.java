@@ -23,7 +23,9 @@ public class InitService {
     @PostConstruct
     public void init() {
         Set<String> keys = redisService.getKeys(redisSessionNamespace + "*");
-        keys.forEach(key -> redisService.del(key));
+        if(keys != null) {
+        	keys.forEach(key -> redisService.del(key));
+        }
         log.info("clean up spring session in redis");
     }
 }
